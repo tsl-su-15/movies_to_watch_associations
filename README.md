@@ -51,36 +51,36 @@ First, lets take care of the some general cleanup:
 
 1. Clean up the movies views
  - Index and Show
-  - Card heading: show movie title and year instead of ID
-  - Show images instead of raw image URLs
-  - Images should be clickable links to show pages
-  - Replace director names instead of IDs
-  - Display links instead of plain text for the director name
+   - Card heading: show movie title and year instead of ID
+   - Show images instead of raw image URLs
+   - Images should be clickable links to show pages
+   - Replace director names instead of IDs
+   - Display links instead of plain text for the director name
  - New and Edit
-  - Replace the director_id text field with a dropdown
+   - Replace the director_id text field with a dropdown
 
 2. Clean up the actors views
  - Index and Show
-  - Card heading: show actor name instead of ID
-  - Show images instead of raw image URLs
-  - Images should be clickable links to show pages
+   - Card heading: show actor name instead of ID
+   - Show images instead of raw image URLs
+   - Images should be clickable links to show pages
 
 3. Clean up the directors views
  - Index and Show
-  - Card heading: show director name instead of ID
-  - Show images instead of raw image URLs
-  - Images should be clickable links to show pages
+   - Card heading: show director name instead of ID
+   - Show images instead of raw image URLs
+   - Images should be clickable links to show pages
  - Show only
-  - display a list of associated movies in a Bootstrap list group
-  - each movie should be a clickable link
+   - display a list of associated movies in a Bootstrap list group
+   - each movie should be a clickable link
 
 4. Clean up the roles views
  - Index and Show
-  - Card heading: show character name instead of ID
-  - Replace movie_id with a clickable link to a movie's show page
-  - Replace actor_id with a clickable link to an actor's show page
+   - Card heading: show character name instead of ID
+   - Replace movie_id with a clickable link to a movie's show page
+   - Replace actor_id with a clickable link to an actor's show page
  - New and Edit
-  - Replace the actor_id and movie_id text fields with dropdowns
+   - Replace the actor_id and movie_id text fields with dropdowns
 
 ### Part 2
 
