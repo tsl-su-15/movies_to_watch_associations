@@ -1,5 +1,25 @@
 Rails.application.routes.draw do
 
+  # Routes for the Watchlist_item resource:
+  # CREATE
+  get '/watchlist_items/new',      :controller => 'watchlist_items', :action => 'new',    :as => 'new_watchlist_item'
+  post '/watchlist_items',         :controller => 'watchlist_items', :action => 'create', :as => 'watchlist_items'
+
+  # READ
+  get '/watchlist_items',          :controller => 'watchlist_items', :action => 'index'
+  get '/watchlist_items/:id',      :controller => 'watchlist_items', :action => 'show',   :as => 'watchlist_item'
+
+  # UPDATE
+  get '/watchlist_items/:id/edit', :controller => 'watchlist_items', :action => 'edit',   :as => 'edit_watchlist_item'
+  patch '/watchlist_items/:id',    :controller => 'watchlist_items', :action => 'update'
+
+  # DELETE
+  delete '/watchlist_items/:id',   :controller => 'watchlist_items', :action => 'destroy'
+  #------------------------------
+
+  devise_for :users
+  root to: 'movies#index'
+
   # Routes for the Role resource:
   # CREATE
   get '/roles/new',      :controller => 'roles', :action => 'new',    :as => 'new_role'
