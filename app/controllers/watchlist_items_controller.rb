@@ -1,6 +1,6 @@
 class WatchlistItemsController < ApplicationController
   before_action :authenticate_user!
-  before_action :set_watchlist_item, only: [:show, :edit, :update, :destroy, :check_if_owner]
+  before_action :set_watchlist_item, only: [:show, :edit, :update, :destroy, :check_if_owner, :unwatch]
   before_action :check_if_owner, only: [:show, :edit, :update, :destroy]
 
   def index
@@ -45,6 +45,28 @@ class WatchlistItemsController < ApplicationController
     @watchlist_item.destroy
 
     redirect_to :back, :notice => "Watchlist item deleted."
+  end
+
+  def watch
+    watchlist_item = WatchlistItem.where(user_id: params[:user_id], movie_id: params[:movie_id]).first
+    @watchlist_item = watchlist_item || WatchlistItem.new(user_id: params[:user_id], movie_id: params[:movie_id])
+    @watchlist_item.watched = true
+    if @watchlist_item.save
+      redirect_to movies_url, notice: "Movie marked as watched"
+    else
+      redirect_to movies_url, notice: "There was an error marking your movie as watched"
+    end
+  end
+
+  def unwatch
+    @watchlist_item.watched = false
+    @watchlist_item.save
+
+    if @watchlist_item.save
+      redirect_to movies_url, notice: "Movie marked as unwatched"
+    else
+      redirect_to movies_url, notice: "There was an error marking your movie as unwatched"
+    end
   end
 
   def set_watchlist_item

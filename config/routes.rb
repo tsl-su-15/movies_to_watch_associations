@@ -4,6 +4,7 @@ Rails.application.routes.draw do
   # CREATE
   get '/watchlist_items/new',      :controller => 'watchlist_items', :action => 'new',    :as => 'new_watchlist_item'
   post '/watchlist_items',         :controller => 'watchlist_items', :action => 'create', :as => 'watchlist_items'
+  post '/watchlist_items/watched', :controller => 'watchlist_items', :action => 'watch', :as => 'watch_watchlist_item'
 
   # READ
   get '/watchlist_items',          :controller => 'watchlist_items', :action => 'index'
@@ -12,6 +13,7 @@ Rails.application.routes.draw do
   # UPDATE
   get '/watchlist_items/:id/edit', :controller => 'watchlist_items', :action => 'edit',   :as => 'edit_watchlist_item'
   patch '/watchlist_items/:id',    :controller => 'watchlist_items', :action => 'update'
+  patch '/watchlist_items/:id/unwatch', :controller => 'watchlist_items', :action => 'unwatch', :as => 'unwatch_watchlist_item'
 
   # DELETE
   delete '/watchlist_items/:id',   :controller => 'watchlist_items', :action => 'destroy'

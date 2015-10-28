@@ -22,7 +22,9 @@
   <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3 isotope-item">
     <div class="panel panel-default">
       <div class="panel-heading">
-        <h3 class="panel-title"><%= movie.title %> - <%= movie.year %></h3>
+        <h3 class="panel-title">
+          <%= movie.title %> - <%= movie.year %>
+        </h3>
       </div>
       <div class="panel-body">
         <dl>
@@ -45,12 +47,32 @@
             <%= link_to watchlist_item_path(watchlist_item), method: :delete, class: 'btn btn-danger' do %>
               <i class="fa fa-times"></i> Remove from watch list
             <% end %>
+            <% if watchlist_item.watched == true %>
+              <%= link_to unwatch_watchlist_item_path(watchlist_item), method: :patch, class: 'btn btn-warning movie-panel-button' do %>
+                <i class="fa fa-times"></i> Mark as unwatched
+              <% end %>
+            <% else %>
+              <%= form_tag watch_watchlist_item_path, class: 'movie-panel-button' do %>
+                <input type="hidden" value="<%= current_user.id %>" name="user_id">
+                <input type="hidden" value="<%= movie.id %>" name="movie_id">
+                <button class="btn btn-success">
+                  <i class="fa fa-check"></i> Mark as watched
+                </button>
+              <% end %>
+            <% end %>
           <% else %>
             <%= form_tag watchlist_items_path do %>
               <input type="hidden" value="<%= current_user.id %>" name="user_id">
               <input type="hidden" value="<%= movie.id %>" name="movie_id">
               <button class="btn btn-success">
                 <i class="fa fa-plus"></i> Add to watch list
+              </button>
+            <% end %>
+            <%= form_tag watch_watchlist_item_path, class: 'movie-panel-button' do %>
+              <input type="hidden" value="<%= current_user.id %>" name="user_id">
+              <input type="hidden" value="<%= movie.id %>" name="movie_id">
+              <button class="btn btn-success">
+                <i class="fa fa-check"></i> Mark as watched
               </button>
             <% end %>
           <% end %>
