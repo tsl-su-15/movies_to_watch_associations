@@ -1,10 +1,11 @@
 class RolesController < ApplicationController
+  before_action :set_role, only: [:show, :edit, :update, :destroy]
+
   def index
     @roles = Role.all
   end
 
   def show
-    @role = Role.find(params[:id])
   end
 
   def new
@@ -12,10 +13,7 @@ class RolesController < ApplicationController
   end
 
   def create
-    @role = Role.new
-    @role.actor_id = params[:actor_id]
-    @role.movie_id = params[:movie_id]
-    @role.character_name = params[:character_name]
+    @role = Role.new(role_params)
 
     if @role.save
       redirect_to roles_url, :notice => "Role created successfully."
@@ -25,17 +23,10 @@ class RolesController < ApplicationController
   end
 
   def edit
-    @role = Role.find(params[:id])
   end
 
   def update
-    @role = Role.find(params[:id])
-
-    @role.actor_id = params[:actor_id]
-    @role.movie_id = params[:movie_id]
-    @role.character_name = params[:character_name]
-
-    if @role.save
+    if @role.update_attributes(role_params)
       redirect_to role_url(@role.id), :notice => "Role updated successfully."
     else
       render 'edit'
@@ -43,10 +34,16 @@ class RolesController < ApplicationController
   end
 
   def destroy
-    @role = Role.find(params[:id])
-
     @role.destroy
 
     redirect_to roles_url, :notice => "Role deleted."
+  end
+
+  def set_role
+    @role = Role.find(params[:id])
+  end
+
+  def role_params
+    params.require(:role).permit(:actor_id, :movie_id, :character_name)
   end
 end
