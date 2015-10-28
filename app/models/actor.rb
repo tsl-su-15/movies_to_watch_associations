@@ -1,5 +1,3 @@
 class Actor < ActiveRecord::Base
-  def roles
-    Role.where(actor_id: id)
-  end
+  has_many :roles
 end
