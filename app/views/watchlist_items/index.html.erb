@@ -19,37 +19,39 @@
 
 <div class="row isotope-container">
 <% @watchlist_items.each do |watchlist_item| %>
-  <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3 isotope-item">
-    <div class="panel panel-default">
-      <div class="panel-heading">
-        <h3 class="panel-title">Watchlist Item #<%= watchlist_item.id %></h3>
-      </div>
-      <div class="panel-body">
-        <dl>
-          <dt>User</dt>
-          <dd><%= watchlist_item.user_id %></dd>
+  <% if current_user.id == watchlist_item.user_id %>
+    <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3 isotope-item">
+      <div class="panel panel-default">
+        <div class="panel-heading">
+          <h3 class="panel-title">Watchlist Item #<%= watchlist_item.id %></h3>
+        </div>
+        <div class="panel-body">
+          <dl>
+            <dt>User</dt>
+            <dd><%= watchlist_item.user_id %></dd>
 
-          <dt>Movie</dt>
-          <dd><%= watchlist_item.movie_id %></dd>
+            <dt>Movie</dt>
+            <dd><%= watchlist_item.movie_id %></dd>
 
-          <dt>Watched</dt>
-          <dd><%= watchlist_item.watched %></dd>
+            <dt>Watched</dt>
+            <dd><%= watchlist_item.watched %></dd>
 
-        </dl>
-        <div class="btn-group btn-group-justified">
-          <%= link_to watchlist_item_url(watchlist_item), :class => "btn btn-primary" do %>
-            <i class="fa fa-search-plus"></i>
-          <% end %>
-          <%= link_to edit_watchlist_item_url(watchlist_item), :class => "btn btn-warning" do %>
-            <i class="fa fa-edit"></i>
-          <% end %>
-          <%= link_to watchlist_item_url(watchlist_item), :method => "delete", :data => { :confirm => "Do you really want to delete this watchlist_item?" }, :class => "btn btn-danger" do %>
-            <i class="fa fa-trash-o"></i>
-          <% end %>
+          </dl>
+          <div class="btn-group btn-group-justified">
+            <%= link_to watchlist_item_url(watchlist_item), :class => "btn btn-primary" do %>
+              <i class="fa fa-search-plus"></i>
+            <% end %>
+            <%= link_to edit_watchlist_item_url(watchlist_item), :class => "btn btn-warning" do %>
+              <i class="fa fa-edit"></i>
+            <% end %>
+            <%= link_to watchlist_item_url(watchlist_item), :method => "delete", :data => { :confirm => "Do you really want to delete this watchlist_item?" }, :class => "btn btn-danger" do %>
+              <i class="fa fa-trash-o"></i>
+            <% end %>
+          </div>
         </div>
       </div>
     </div>
-  </div>
+  <% end %>
 <% end %>
 </div>
 

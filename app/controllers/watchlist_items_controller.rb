@@ -1,10 +1,13 @@
 class WatchlistItemsController < ApplicationController
+  before_action :authenticate_user!
+  before_action :set_watchlist_item, only: [:show, :edit, :update, :destroy, :check_if_owner]
+  before_action :check_if_owner, only: [:show, :edit, :update, :destroy]
+
   def index
     @watchlist_items = WatchlistItem.all
   end
 
   def show
-    @watchlist_item = WatchlistItem.find(params[:id])
   end
 
   def new
@@ -17,19 +20,16 @@ class WatchlistItemsController < ApplicationController
     @watchlist_item.movie_id = params[:movie_id]
 
     if @watchlist_item.save
-      redirect_to watchlist_items_url, :notice => "Watchlist item created successfully."
+      redirect_to movies_url, :notice => "Watchlist item created successfully."
     else
       render 'new'
     end
   end
 
   def edit
-    @watchlist_item = WatchlistItem.find(params[:id])
   end
 
   def update
-    @watchlist_item = WatchlistItem.find(params[:id])
-
     @watchlist_item.user_id = params[:user_id]
     @watchlist_item.movie_id = params[:movie_id]
     @watchlist_item.watched = params[:watched]
@@ -42,10 +42,18 @@ class WatchlistItemsController < ApplicationController
   end
 
   def destroy
-    @watchlist_item = WatchlistItem.find(params[:id])
-
     @watchlist_item.destroy
 
-    redirect_to watchlist_items_url, :notice => "Watchlist item deleted."
+    redirect_to :back, :notice => "Watchlist item deleted."
+  end
+
+  def set_watchlist_item
+    @watchlist_item = WatchlistItem.find(params[:id])
+  end
+
+  def check_if_owner
+    if current_user.id != @watchlist_item.user_id
+      redirect_to root_url, notice: "You must be the owner to do that"
+    end
   end
 end
