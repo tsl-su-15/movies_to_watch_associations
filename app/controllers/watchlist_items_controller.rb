@@ -74,6 +74,6 @@ class WatchlistItemsController < ApplicationController
   end
 
   def watchlist_item_params
-    params.require(:watchlist_item).permit(:user_id, :movei_id, :watched)
+    params.require(:watchlist_item).permit(:user_id, :movie_id, :watched)
   end
 end

@@ -1,0 +1,14 @@
+<% watchlist_item = WatchlistItem.where(movie_id: the_movie.id, user_id: current_user.id).first %>
+<% if watchlist_item %>
+  <%= link_to watchlist_item_path(watchlist_item), method: :delete, class: 'btn btn-danger' do %>
+    <i class="fa fa-times"></i> Remove from watch list
+  <% end %>
+<% else %>
+  <%= form_for WatchlistItem.new do %>
+    <input type="hidden" value="<%= current_user.id %>" name="watchlist_item[user_id]">
+    <input type="hidden" value="<%= the_movie.id %>" name="watchlist_item[movie_id]">
+    <button class="btn btn-success">
+      <i class="fa fa-plus"></i> Add to watch list
+    </button>
+  <% end %>
+<% end %>
