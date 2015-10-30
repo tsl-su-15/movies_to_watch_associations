@@ -1,4 +1,5 @@
 class Movie < ActiveRecord::Base
+  validates :title, :year, :duration, :description, :image_url, presence: true
   belongs_to :director
   # def director
   #   Director.find(director_id)

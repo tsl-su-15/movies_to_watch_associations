@@ -67,3 +67,4 @@ role_hashes.each do |role_hash|
   r.save
 end
 puts "There are now #{Role.count} rows in the roles table."
+AdminUser.create!(email: 'admin@example.com', password: 'password', password_confirmation: 'password')
