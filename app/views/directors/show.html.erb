@@ -4,17 +4,14 @@
   <div class="col-sm-offset-1 col-sm-10 col-md-offset-2 col-md-8">
     <div class="panel panel-default">
       <div class="panel-heading">
-        <h3 class="panel-title">Director #<%= @director.id %></h3>
+        <h3 class="panel-title"><%= @director.name %></h3>
       </div>
       <div class="panel-body">
         <div class="row">
           <div class="col-md-12">
             <dl class="dl-horizontal">
-              <dt>Name</dt>
-              <dd><%= @director.name %></dd>
-
               <dt>Image url</dt>
-              <dd><%= @director.image_url %></dd>
+              <dd><%= link_to image_tag(@director.image_url), director_path(@director.id) %></dd>
 
               <dt>Bio</dt>
               <dd><%= @director.bio %></dd>
@@ -36,6 +33,17 @@
             </div>
           </div>
         </div>
+      </div>
+    </div>
+    <div class="panel panel-default">
+      <!-- Default panel contents -->
+      <div class="panel-heading">Associated movies</div>
+
+      <!-- List group -->
+      <div class="list-group">
+        <% @director.movies.each do |movie| %>
+          <%= link_to movie.title, movie_path(movie.id), class: 'list-group-item'  %>
+        <% end %>
       </div>
     </div>
   </div>

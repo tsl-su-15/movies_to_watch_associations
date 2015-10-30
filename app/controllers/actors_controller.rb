@@ -12,11 +12,7 @@ class ActorsController < ApplicationController
   end
 
   def create
-    @actor = Actor.new
-    @actor.name = params[:name]
-    @actor.image_url = params[:image_url]
-    @actor.bio = params[:bio]
-    @actor.dob = params[:dob]
+    @actor = Actor.new(actor_params)
 
     if @actor.save
       redirect_to actors_url, :notice => "Actor created successfully."
@@ -32,12 +28,7 @@ class ActorsController < ApplicationController
   def update
     @actor = Actor.find(params[:id])
 
-    @actor.name = params[:name]
-    @actor.image_url = params[:image_url]
-    @actor.bio = params[:bio]
-    @actor.dob = params[:dob]
-
-    if @actor.save
+    if @actor.update_attributes(actor_params)
       redirect_to actor_url(@actor.id), :notice => "Actor updated successfully."
     else
       render 'edit'
@@ -50,5 +41,9 @@ class ActorsController < ApplicationController
     @actor.destroy
 
     redirect_to actors_url, :notice => "Actor deleted."
+  end
+
+  def actor_params
+    params.require(:actor).permit(:name, :image_url, :bio, :dob)
   end
 end
