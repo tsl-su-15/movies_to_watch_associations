@@ -18,47 +18,7 @@
         <h3 class="panel-title">Edit Watchlist Item #<%= @watchlist_item.id %></h3>
       </div>
       <div class="panel-body">
-        <%= form_tag watchlist_item_url(@watchlist_item.id), :method => "patch", :class => "form-horizontal" do %>
-          <!-- Label and input for user_id -->
-          <div class="form-group">
-            <label for="user_id" class="col-sm-2 control-label">
-              User
-            </label>
-            <div class="col-sm-10">
-              <input type="text" id="user_id" name="user_id" placeholder="User" class="form-control" value="<%= @watchlist_item.user_id %>">
-            </div>
-          </div>
-
-          <!-- Label and input for movie_id -->
-          <div class="form-group">
-            <label for="movie_id" class="col-sm-2 control-label">
-              Movie
-            </label>
-            <div class="col-sm-10">
-              <input type="text" id="movie_id" name="movie_id" placeholder="Movie" class="form-control" value="<%= @watchlist_item.movie_id %>">
-            </div>
-          </div>
-
-          <!-- Label and input for watched -->
-          <div class="form-group">
-            <div class="col-sm-offset-2 col-sm-10">
-              <div class="checkbox">
-                <label for="watched">
-                  <input type="checkbox" id="watched" name="watched" value="1" <%= "checked" if @watchlist_item.watched %>>
-                  Watched
-                </label>
-              </div>
-            </div>
-          </div>
-
-          <div class="form-group">
-            <div class="col-sm-offset-2 col-sm-10">
-              <input type="submit" value="Update Watchlist Item" class="btn btn-warning">
-              or
-              <%= link_to "Cancel", watchlist_item_url(@watchlist_item.id) %>
-            </div>
-          </div>
-        <% end %>
+        <%= render 'form' %>
       </div>
     </div>
   </div>

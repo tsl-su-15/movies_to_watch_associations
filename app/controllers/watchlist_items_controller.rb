@@ -15,9 +15,7 @@ class WatchlistItemsController < ApplicationController
   end
 
   def create
-    @watchlist_item = WatchlistItem.new
-    @watchlist_item.user_id = params[:user_id]
-    @watchlist_item.movie_id = params[:movie_id]
+    @watchlist_item = WatchlistItem.new(watchlist_item_params)
 
     if @watchlist_item.save
       redirect_to movies_url, :notice => "Watchlist item created successfully."
@@ -30,11 +28,7 @@ class WatchlistItemsController < ApplicationController
   end
 
   def update
-    @watchlist_item.user_id = params[:user_id]
-    @watchlist_item.movie_id = params[:movie_id]
-    @watchlist_item.watched = params[:watched]
-
-    if @watchlist_item.save
+    if @watchlist_item.update_attributes(watchlist_item_params)
       redirect_to watchlist_item_url(@watchlist_item.id), :notice => "Watchlist item updated successfully."
     else
       render 'edit'
@@ -77,5 +71,9 @@ class WatchlistItemsController < ApplicationController
     if current_user.id != @watchlist_item.user_id
       redirect_to root_url, notice: "You must be the owner to do that"
     end
+  end
+
+  def watchlist_item_params
+    params.require(:watchlist_item).permit(:user_id, :movei_id, :watched)
   end
 end
