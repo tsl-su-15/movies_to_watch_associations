@@ -45,7 +45,13 @@ class WatchlistItemsController < ApplicationController
     watchlist_item = WatchlistItem.where(user_id: params[:user_id], movie_id: params[:movie_id]).first
     @watchlist_item = watchlist_item || WatchlistItem.new(user_id: params[:user_id], movie_id: params[:movie_id])
     @watchlist_item.watched = true
+
+
+
     if @watchlist_item.save
+      if @watchlist_item.user.watched_movie_count == 3
+        WatchlistMailer.novice_level_achieved(@watchlist_item.user).deliver_now
+      end
       redirect_to movies_url, notice: "Movie marked as watched"
     else
       redirect_to movies_url, notice: "There was an error marking your movie as watched"
